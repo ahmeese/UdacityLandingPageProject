@@ -10,11 +10,9 @@ function navList(){
         var section_name=elem.dataset.nav;
         var list=document.createElement('li')
         //Adding the menu__link style to the items
-        list.innerHTML=`<a  class="menu__link" href="#${section_id}">${section_name}</a>`
+        list.innerHTML=`<a  class="menu__link" data-value="${section_id}" href="#">${section_name}</a>`
         nav_menu.appendChild(list);
     }
-
-
 }
 
 /*
@@ -42,18 +40,24 @@ const observer = new IntersectionObserver( function (entries,observer){
 
 options)
 
-
 for (section of sections){
     observer.observe(section)
 
 }
 
-
 // build the nav
 navList()
 
+// When clicking an item from the navigation menu, the link  scroll to the appropriate section using scrollIntoView() function.
 
-
-
+const lists=document.querySelectorAll(".menu__link")
+lists.forEach((item) =>{
+     item.addEventListener('click',(event)=>{
+       event.preventDefault()
+       const elem =document.getElementById(item.getAttribute("data-value"))
+       console.log(elem)
+       elem.scrollIntoView({behavior:"smooth"})
+     })
+ })
 
 
